@@ -1,10 +1,13 @@
 #include <iostream>
 #include <vector>
+#include <ctime>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
-const int N = 12; // Количество элементов в массиве
-const int RANGE = 50; // Максимальное значение в массиве
+const int RANGE = 50000;
+const int FROM = 1000, TO = 11000, STEP = 1000;
 
 
 
@@ -167,19 +170,236 @@ void bubbleSort(vector<int>& arr) {
 }
 
 
-int main() {
-    vector<int> arr;
-    // Заполнение массива случайными числами
-    for (int i = 0; i < N; i++) {
+// Перегрузки сортировок для подсчета операций
+int findMin(std::vector<int>& arr, int a, int& T) {
+    int min = arr[a], min_index = a;
+    T += 3;
+    for (int i = a + 1; i < arr.size(); i++) {
+        T += 2; // Сравнения
+        if (min > arr[i]) {
+            min = arr[i];
+            min_index = i; // Запоминаем индекс минимального элемента
+            T += 2;
+        }
+        T++; // Инкремент i
+    }
+    return min_index;
+}
+
+void selectionSort(std::vector<int>& arr, int& T) {
+    T = 0;
+    T++; // Инициализация i
+    for (int i = 0; i < arr.size(); i++) {
+        T++; // сравнение
+        int j = findMin(arr, i, T); // Найти индекс минимального элемента
+        T++; // Инициализация j
+        // Обмен значений
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+        T += 3; // Обмен значений
+        T++; // Инкремент
+    }
+}
+
+void insertionSort(std::vector<int>& arr, int& T) {
+    T = 1;  // Инициализация счётчика операций
+    for (int i = 1; i < arr.size(); i++) {
+        int el = arr[i];  // Сохраняем текущий элемент
+        T += 2;  // Операции сохранения и инициализации
+
+        int j = i;
+        while (j > 0 && arr[j - 1] > el) {
+            T += 2;  // Сравнение
+            arr[j] = arr[j - 1];  // Сдвиг элемента
+            T += 1;  // Операция присвоения
+            j--;
+            T++;  // Декремент j
+        }
+        arr[j] = el;  // Вставка элемента
+        T += 1;  // Операция присвоения
+    }
+}
+
+void bubbleSort(std::vector<int>& arr, int& T) {
+
+    bool swapped = true;
+    T += 2; // Инициализация swapped и i
+    for (int i = 0; i < arr.size() - 1 && swapped; i++) {
+        T += 2; // Сравнение
+        swapped = false;
+        T += 2;
+        for (int j = 0; j < arr.size() - i - 1; j++) {
+            T += 2; // Сравнение
+            if (arr[j] > arr[j + 1]) {
+                int tmp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = tmp;
+                swapped = true;
+                T += 4;
+            }
+            T++; //j++
+        }
+        T += 2; // Последнее сравнение
+        T++; // i++
+    }
+    T += 2; // Последнее сравнение
+
+}
+
+
+// Функция для слияния двух отсортированных массивов
+std::vector<int> merge(std::vector<int> left, std::vector<int> right, int& T) {
+    // Создаем массив для хранения результата с размером суммы размеров двух входящих массивов
+    std::vector<int> result((left.size() + right.size()));
+    T++; // Создание массива
+    T += 3; // i = 0, j = 0, k = 0
+    for (int i = 0, j = 0, k = 0; k < result.size(); k++) {
+        T++; // Сравнение
+        // Заполняем результат, выбирая меньший элемент из левого и правого массивов
+        result[k] = i < left.size() && (j == right.size() || left[i] < right[j]) ? left[i++] : right[j++];
+        T += 4;
+        T++; // k++
+        T++; // i++ or j++
+    }
+    T++; // Последнее сравнение
+    T++; // return
+    return result; // Возвращаем объединенный массив
+}
+
+// Функция сортировки слиянием
+std::vector<int> mergeSort(std::vector<int> arr, int& T) {
+    // Базовый случай: если массив содержит 1 или 0 элементов, он уже отсортирован
+    if (arr.size() == 1) {
+        T++; // return
+        return arr;
+    }
+    T++; // Сравнение
+
+    std::vector<int> left;  // Левый подмассив
+    std::vector<int> right; // Правый подмассив
+    T += 2; // Создание массивов
+    // Делим массив на два подмассива
+    T++; // i = 0
+    for (int i = 0; i < arr.size(); i++) {
+        T += 2; // Сравнения
+        if (i < arr.size() / 2) {
+            left.push_back(arr[i]); // Добавляем элемент в левый подмассив
+            T++;
+        }
+        else {
+            right.push_back(arr[i]); // Добавляем элемент в правый подмассив
+            T++;
+        }
+
+        T++; // i++
+    }
+    T++; // Последнее сравение
+    T++; // return
+    // Рекурсивно сортируем левый и правый подмассивы, затем сливаем их
+    return merge(mergeSort(left, T), mergeSort(right, T), T);
+}
+
+void quickSort(std::vector<int>& arr, int left, int right, int& T) {
+    T++; // Сравнение
+    if (left > right) {
+        T++; // return
+        return;
+    }
+    int p = arr[(left + right) / 2];
+    int i = left;
+    int j = right;
+    T += 3;
+    while (i <= j) {
+        T++; // Сравнение;
+        while (arr[i] < p) {
+            i++;
+            T += 2;
+        }
+        T++; // Последнее сравнение
+        while (arr[j] > p) {
+            j--;
+            T += 2;
+        }
+        T++; // Последнее сравнение
+        T++; // Сравнение
+        if (i <= j) {
+            int tmp = arr[i];
+            arr[i++] = arr[j];
+            arr[j--] = tmp;
+            T += 3;
+        }
+    }
+    T++; // Последнее сравнение
+
+    quickSort(arr, left, j, T);
+    quickSort(arr, i, right, T);
+
+
+
+}
+
+
+// FILL
+
+void randomFill(std::vector<int>& arr, int n) {
+    srand(time(NULL));
+    for (int i = 0; i < n; i++) {
         arr.push_back(rand() % RANGE);
     }
-    cout << "ARRAY:\n";
-    printArr(arr);
-    bubbleSort(arr);
-    cout << "\n\n\nARRAY AFTER SORT:\n";
-    printArr(arr);
-    if (isSorted(arr)) cout << "KAIF" << endl;
+}
 
+void sortedFill(std::vector<int>& arr, int n) {
+    for (int i = 0; i < n; i++) {
+        arr.push_back(i);
+    }
+}
+
+void semiSortedFill(std::vector<int>& arr, int n) {
+    int sorted = n * 0.9;
+    int unsorted = n - sorted;
+    for (int i = 0; i < sorted - 1; i++) {
+        arr.push_back(i);
+    }
+    for (int i = unsorted; i >= 0; i--) {
+        arr.push_back(i);
+    }
+}
+
+void sortedOtherDirFill(std::vector<int>& arr, int n) {
+    for (int i = n; i >= 0; i--) {
+        arr.push_back(i);
+    }
+}
+
+
+// DATA
+
+void fillDataFile() {
+    ofstream data_file;
+    data_file.open("DATA.csv");
+    if (!data_file.is_open()) {
+        cout << "ERROR\n";
+        return;
+    }
+    data_file << "n; T(n)\n";
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        sortedFill(arr, n);
+        int T = 0;
+        mergeSort(arr, T);
+        data_file << n << "; " << T << endl;
+    }
+
+    
+
+    data_file.close();
+    
+}
+
+int main() {
+   
+    fillDataFile();
 
     return 0;
 }
