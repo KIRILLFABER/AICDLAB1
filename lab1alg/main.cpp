@@ -426,7 +426,7 @@ void semiSortedFill(std::vector<int>& arr, int n) {
     }
 }
 
-void sortedOtherDirFill(std::vector<int>& arr, int n) {
+void unSortedFill(std::vector<int>& arr, int n) {
     for (int i = n; i >= 0; i--) {
         arr.push_back(i);
     }
@@ -436,24 +436,218 @@ void sortedOtherDirFill(std::vector<int>& arr, int n) {
 // DATA
 
 void fillDataFile() {
-
-    
-
-
     ofstream data_file;
     data_file.open("DATA.csv");
     if (!data_file.is_open()) {
         cout << "ERROR\n";
         return;
     }
-    data_file << "n; T(n)\n";
+
+    data_file << "sort;fill;n;T(n)\n";
     for (int n = FROM; n < TO; n += STEP) {
         vector<int> arr;
-        sortedOtherDirFill(arr, n);
+        sortedFill(arr, n);
+        int T = 0;
+        selectionSort(arr, T);
+        data_file << "SS;S;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        semiSortedFill(arr, n);
+        int T = 0;
+        selectionSort(arr, T);
+        data_file << "SS;SS;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        unSortedFill(arr, n);
+        int T = 0;
+        selectionSort(arr, T);
+        data_file << "SS;US;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        randomFill(arr, n);
+        int T = 0;
+        selectionSort(arr, T);
+        data_file << "SS;RS;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        sortedFill(arr, n);
+        int T = 0;
+        insertionSort(arr, T);
+        data_file << "IS;S;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        semiSortedFill(arr, n);
+        int T = 0;
+        insertionSort(arr, T);
+        data_file << "IS;SS;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        unSortedFill(arr, n);
+        int T = 0;
+        insertionSort(arr, T);
+        data_file << "IS;US;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        randomFill(arr, n);
+        int T = 0;
+        insertionSort(arr, T);
+        data_file << "IS;RS;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        sortedFill(arr, n);
+        int T = 0;
+        bubbleSort(arr, T);
+        data_file << "BS;S;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        semiSortedFill(arr, n);
+        int T = 0;
+        bubbleSort(arr, T);
+        data_file << "BS;SS;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        unSortedFill(arr, n);
+        int T = 0;
+        bubbleSort(arr, T);
+        data_file << "BS;US;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        randomFill(arr, n);
+        int T = 0;
+        bubbleSort(arr, T);
+        data_file << "BS;RS;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        sortedFill(arr, n);
+        int T = 0;
+        mergeSort(arr, T);
+        data_file << "MS;S;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        semiSortedFill(arr, n);
+        int T = 0;
+        mergeSort(arr, T);
+        data_file << "MS;SS;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        unSortedFill(arr, n);
+        int T = 0;
+        mergeSort(arr, T);
+        data_file << "MS;US;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        randomFill(arr, n);
+        int T = 0;
+        mergeSort(arr, T);
+        data_file << "MS;RS;" << n << "; " << T << endl;
+    }
+    /*
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        sortedFill(arr, n);
+        int T = 0;
+        shellSort(arr, T);
+        data_file << "SHS;S;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        semiSortedFill(arr, n);
+        int T = 0;
+        shellSort(arr, T);
+        data_file << "SHS;SS;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        unSortedFill(arr, n);
+        int T = 0;
+        shellSort(arr, T);
+        data_file << "SHS;US;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        randomFill(arr, n);
+        int T = 0;
+        shellSort(arr, T);
+        data_file << "SHS;RS;" << n << "; " << T << endl;
+    }
+    */
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        sortedFill(arr, n);
         int T = 0;
         quickSort(arr, 0, arr.size() - 1, T);
-        data_file << n << "; " << T << endl;
+        data_file << "QS;S;" << n << "; " << T << endl;
     }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        semiSortedFill(arr, n);
+        int T = 0;
+        quickSort(arr, 0, arr.size() - 1, T);
+        data_file << "QS;SS;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        unSortedFill(arr, n);
+        int T = 0;
+        quickSort(arr, 0, arr.size() - 1, T);
+        data_file << "QS;US;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        randomFill(arr, n);
+        int T = 0;
+        quickSort(arr, 0, arr.size() - 1, T);
+        data_file << "QS;RS;" << n << "; " << T << endl;
+    }
+    /*
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        sortedFill(arr, n);
+        int T = 0;
+        heapSort(arr, T);
+        data_file << "HS;S;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        semiSortedFill(arr, n);
+        int T = 0;
+        heapSort(arr, T);
+        data_file << "HS;SS;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        unSortedFill(arr, n);
+        int T = 0;
+        heapSort(arr, T);
+        data_file << "HS;US;" << n << "; " << T << endl;
+    }
+    for (int n = FROM; n < TO; n += STEP) {
+        vector<int> arr;
+        randomFill(arr, n);
+        int T = 0;
+        heapSort(arr, T);
+        data_file << "HS;RS;" << n << "; " << T << endl;
+    }
+    */
+
+    
+
+ 
 
     
 
