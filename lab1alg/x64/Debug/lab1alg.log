@@ -1,4 +1,6 @@
 ﻿  main.cpp
-C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(346,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(359,16): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(205,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(406,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(419,16): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(454,38): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
   lab1alg.vcxproj -> C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\x64\Debug\lab1alg.exe
