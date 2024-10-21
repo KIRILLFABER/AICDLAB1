@@ -1,9 +1,10 @@
 ﻿  main.cpp
-C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(205,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(406,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(419,16): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(593,38): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(600,38): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(607,38): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(614,38): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(132,16): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(208,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(232,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(245,16): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(468,38): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(478,38): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(488,38): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\main.cpp(498,38): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
   lab1alg.vcxproj -> C:\Users\KIRIL\OneDrive\Рабочий стол\Учёба\Алгосы\лаб1\lab1alg\x64\Debug\lab1alg.exe
