@@ -44,12 +44,14 @@ def reg(n, T, col):
     coefficients = np.polyfit(n, T, 2)
     polynomial_regression = np.poly1d(coefficients)
 
+
     # Генерация значений для кривой регрессии
     x_reg = np.linspace(min(n), max(n), 100)
     y_reg = polynomial_regression(x_reg)
 
     # Построение кривой регрессии
     plt.plot(x_reg, y_reg, color=col)
+
 
 
 def printGraphics(data_n, data_T, title, filename):

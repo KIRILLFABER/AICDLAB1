@@ -8,7 +8,7 @@
 using namespace std;
 
 const int RANGE = 30000; // максимальное значение элемента для случайного заполнения
-const int FROM = 20000, TO = 120000, STEP = 10000; // 
+const int FROM = 1, TO = 2000, STEP = 100; // 
 
 
 
@@ -139,74 +139,48 @@ void shellSort(vector<int>& arr) {
     }
 }
 
-
 void shellSortHibb(vector<int>& arr) {
-    int i, j, k, increment, temp;
-    int val;
-    // Вычисление начального шага
-    val = (int)log((float)arr.size() + 1) / log((float)2);
-    increment = pow((float)2, val) - 1;
-    while (increment > 0)
-    {
-        for (i = 0; i < increment; i++)
-        {
-            for (j = 0; j < arr.size(); j += increment)
-            {
-                temp = arr[j];
-                for (k = j - increment; k >= 0 && temp < arr[k]; k -= increment)
-                {
-                    arr[k + increment] = arr[k]; // Сдвигаем элементы вправо
-                }
-                arr[k + increment] = temp; // Вставляем элемент temp в правильное место
+    for (int k = (int)(log(arr.size() + 1) / log(2)); k > 0; k--) { // Цикл по шагам s
+        int s = pow(2, k) - 1;
+        for (int i = s; i < arr.size(); i++) {
+            // Сравниваем текущий элемент с элементами, находящимися на расстоянии s
+            for (int j = i - s; j >= 0 && arr[j] > arr[j + s]; j -= s) {
+                // Обмен значений
+                int temp = arr[j];
+                arr[j] = arr[j + s];
+                arr[j + s] = temp;
             }
         }
-        val--; // Уменьшаем val для следующего шага
-
-        // Вычисление нового значения шага
-        if (increment != 1)
-            increment = pow((float)2, val) - 1;
-        else
-            increment = 0;
     }
 }
 
+
 void shellSortPratt(vector<int>& arr) {
     vector<int> gaps;
-    int size = arr.size();
 
     // Генерация последовательности Пратта
-    for (int i = 1; i < size; i *= 2)
+    for (int i = 1; i < arr.size(); i *= 2)
     {
-        for (int j = i; j < size; j *= 3)
+        for (int j = i; j < arr.size(); j *= 3)
         {
             gaps.push_back(j);
         }
     }
-
-    // Сортировка шагов по убыванию
-    insertionSort(gaps);
-
-    // Сортировка массива по каждому шагу
-    for (int gap : gaps)
-    {
-        for (int i = gap; i < size; i++)
-        {
-            int temp = arr[i];
-            int j;
-            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap){
-                arr[j] = arr[j - gap];
+    quickSort(gaps, 0, gaps.size() - 1);
+    int s = 0;
+    for (int k = gaps.size() - 1; k >= 0; k--) { // Цикл по шагам s
+        s = gaps[k];
+        for (int i = s; i < arr.size(); ++i) {
+            // Сравниваем текущий элемент с элементами, находящимися на расстоянии s
+            for (int j = i - s; j >= 0 && arr[j] > arr[j + s]; j -= s) {
+                // Обмен значений
+                int temp = arr[j];
+                arr[j] = arr[j + s];
+                arr[j + s] = temp;
             }
-            arr[j] = temp;
         }
     }
-
 }
-
-
-
-
-
-
 
 
 
@@ -770,7 +744,7 @@ void checkSorts() {
     vector<int> arr;
 
     
-    randomFill(arr, size);
+    unSortedFill(arr, size);
     // Sellection Sort
     vector<int> selectionArr = arr; 
     selectionSort(selectionArr);
@@ -830,7 +804,7 @@ void checkSorts() {
 
 int main() {
     
-    //checkSorts();
+    checkSorts();
    
     fillDataFile();
 
