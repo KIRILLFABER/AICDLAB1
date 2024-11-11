@@ -4,11 +4,12 @@
 #include <fstream>
 #include <string>
 #include <chrono>
+#include <random>
 
 using namespace std;
 
-const int RANGE = 30000; // максимальное значение элемента для случайного заполнения
-const int FROM = 1, TO = 2000, STEP = 100; // 
+const int RANGE = 200000; // максимальное значение элемента для случайного заполнения
+const int FROM = 10000, TO = 120000, STEP = 10000; // 
 
 
 
@@ -166,7 +167,7 @@ void shellSortPratt(vector<int>& arr) {
             gaps.push_back(j);
         }
     }
-    quickSort(gaps, 0, gaps.size() - 1);
+    mergeSort(gaps);
     int s = 0;
     for (int k = gaps.size() - 1; k >= 0; k--) { // Цикл по шагам s
         s = gaps[k];
@@ -284,7 +285,11 @@ void heapSort(vector<int>& arr) {
 void randomFill(std::vector<int>& arr, int n) {
     srand(time(NULL));
     for (int i = 0; i < n; i++) {
-        arr.push_back(rand() % RANGE);
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> dis(0, RANGE);
+        arr.push_back(dis(gen));
+        
     }
 }
 
@@ -374,7 +379,7 @@ void fillDataFile() {
         float T = duration.count();
         data_file << "SS;RS;" << n << ";" << T << endl;
     }
-
+    cout << "Selection Sort: Done\n";
     // INSERTION SORT
     for (int n = FROM; n < TO; n += STEP) {
         vector<int> arr;
@@ -417,7 +422,7 @@ void fillDataFile() {
         float T = duration.count();
         data_file << "IS;RS;" << n << ";" << T << endl;
     }
-
+    cout << "Insertion Sort: Done\n";
     // BUBBLE SORT
     for (int n = FROM; n < TO; n += STEP) {
         vector<int> arr;
@@ -459,7 +464,7 @@ void fillDataFile() {
         float T = duration.count();
         data_file << "BS;RS;" << n << ";" << T << endl;
     }
-
+    cout << "Bubble Sort: Done\n";
     // MERGE SORT
     for (int n = FROM; n < TO; n += STEP) {
         vector<int> arr;
@@ -501,7 +506,7 @@ void fillDataFile() {
         float T = duration.count();
         data_file << "MS;RS;" << n << ";" << T << endl;
     }
-
+    cout << "Merge Sort: Done\n";
     // SHELL SORT
     for (int n = FROM; n < TO; n += STEP) {
         vector<int> arr;
@@ -543,7 +548,7 @@ void fillDataFile() {
         float T = duration.count();
         data_file << "SHS;RS;" << n << ";" << T << endl;
     }
-
+    cout << "Shell Sort: Done\n";
     // SHELL SORT (HIBBARD)
 
     for (int n = FROM; n < TO; n += STEP) {
@@ -586,7 +591,7 @@ void fillDataFile() {
         float T = duration.count();
         data_file << "SHHS;RS;" << n << ";" << T << endl;
     }
-
+    cout << "Shell Sort (Hibbard): Done\n";
     // SHELL SORT (PRATT)
 
     for (int n = FROM; n < TO; n += STEP) {
@@ -629,7 +634,7 @@ void fillDataFile() {
         float T = duration.count();
         data_file << "SHPS;RS;" << n << ";" << T << endl;
     }
-
+    cout << "Shell Sort (Pratt): Done\n";
     // QUICK SORT
     for (int n = FROM; n < TO; n += STEP) {
         vector<int> arr;
@@ -671,7 +676,7 @@ void fillDataFile() {
         float T = duration.count();
         data_file << "QS;RS;" << n << ";" << T << endl;
     }
-
+    cout << "Quick Sort: Done\n";
     // HEAP SORT
     for (int n = FROM; n < TO; n += STEP) {
         vector<int> arr;
@@ -713,7 +718,7 @@ void fillDataFile() {
         float T = duration.count();
         data_file << "HS;RS;" << n << ";" << T << endl;
     }
-
+    cout << "Heap Sort: Done\n";
     
     data_file.close(); // Закрытие файла
     
@@ -744,7 +749,7 @@ void checkSorts() {
     vector<int> arr;
 
     
-    unSortedFill(arr, size);
+    randomFill(arr, size);
     // Sellection Sort
     vector<int> selectionArr = arr; 
     selectionSort(selectionArr);
@@ -803,8 +808,11 @@ void checkSorts() {
 
 
 int main() {
+
+
     
-    checkSorts();
+    
+    //checkSorts();
    
     fillDataFile();
 
